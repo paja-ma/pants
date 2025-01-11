@@ -8,6 +8,7 @@ import { Button } from '../components/common/Button'
 import { useAccount } from 'wagmi'
 
 import deploy from '../hooks/deploy'
+import writeExample from '../hooks/writeExample'
 import { usePrivy } from '@privy-io/react-auth'
 
 export function HomePage() {
@@ -50,7 +51,7 @@ export function HomePage() {
         <Header>
           <Title>래플 목록</Title>
           {/* <CreateButton onClick={() => navigate('/raffle/create')}> */}
-          <CreateButton onClick={() => deploy(user?.wallet?.address)}>
+          <CreateButton onClick={() => writeExample('haha')}>
             래플 만들기
           </CreateButton>
         </Header>
