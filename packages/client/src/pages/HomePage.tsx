@@ -50,8 +50,8 @@ export function HomePage() {
     return <div>Loading...</div>
   }
 
-  const activeRaffles = raffles.filter((raffle) => !raffle.isEnded)
-  const endedRaffles = raffles.filter((raffle) => raffle.isEnded)
+  const activeRaffles = raffles.filter((raffle) => !raffle.isClosed)
+  const endedRaffles = raffles.filter((raffle) => raffle.isClosed)
   // const endedRaffles: Raffle[] = []
 
   return (
