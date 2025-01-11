@@ -7,11 +7,13 @@ import styles from './HomePage.module.css'
 import { usePrivy } from '@privy-io/react-auth'
 import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
 import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
+// import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { user } = usePrivy()
+  // const { registerRaffle } = useRegisterRaffle()
 
   useEffect(() => {
     async function getRaffles() {
@@ -87,6 +89,17 @@ export function HomePage() {
       <Link to="/raffle/create" className={styles.createRaffleButton}>
         래플 만들기
       </Link>
+      {/*<button*/}
+      {/*  onClick={() =>*/}
+      {/*    registerRaffle({*/}
+      {/*      raffleAddress: '0x7b09D796b14530442554E40a47239dBF955cf738',*/}
+      {/*      nickname: '푸헤헤',*/}
+      {/*    })*/}
+      {/*  }*/}
+      {/*  className={styles.createRaffleButton}*/}
+      {/*>*/}
+      {/*  래플 참여하기*/}
+      {/*</button>*/}
     </>
   )
 }
