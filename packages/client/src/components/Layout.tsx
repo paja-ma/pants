@@ -1,27 +1,6 @@
-import styled from '@emotion/styled'
-import { Outlet } from 'react-router-dom'
-import { Header } from './Header'
+import type { ReactNode } from 'react'
+import styles from './Layout.module.css'
 
-export function Layout() {
-  return (
-    <LayoutWrapper>
-      <Header />
-      <Main>
-        <Outlet />
-      </Main>
-    </LayoutWrapper>
-  )
+export function Layout({ children }: { children: ReactNode }) {
+  return <div className={styles.wrapper}>{children}</div>
 }
-
-const LayoutWrapper = styled.div`
-  min-height: 100vh;
-  min-width: 100vw;
-  width: 100%;
-  background: #f8f9fa;
-`
-
-const Main = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`
