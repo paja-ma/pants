@@ -18,45 +18,17 @@ export function AppRoutes() {
         element={authenticated ? <Navigate to="/" replace /> : <LoginPage />}
       />
       <Route
-        path="/"
         element={
           <ProtectedRoute>
-            <Layout>
-              <HomePage />
-            </Layout>
+            <Layout />
           </ProtectedRoute>
         }
-      />
-      <Route
-        path="/raffle/:id"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <RaffleDetailPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/raffle/create"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <CreateRafflePage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/my"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <MyPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
+      >
+        <Route path="/" element={<HomePage />} />
+        <Route path="/raffle/:id" element={<RaffleDetailPage />} />
+        <Route path="/raffle/create" element={<CreateRafflePage />} />
+        <Route path="/my" element={<MyPage />} />
+      </Route>
     </Routes>
   )
 }

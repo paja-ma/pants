@@ -1,15 +1,14 @@
 import styled from '@emotion/styled'
+import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
 
-interface LayoutProps {
-  children: React.ReactNode
-}
-
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   return (
     <LayoutWrapper>
       <Header />
-      <Main>{children}</Main>
+      <Main>
+        <Outlet />
+      </Main>
     </LayoutWrapper>
   )
 }
