@@ -1,40 +1,65 @@
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { RaffleCard } from '../components/RaffleCard'
+import { raffleService } from '../services/raffleService'
+import { Raffle } from '../types/raffle'
 
 export function HomePage() {
+  const [raffles, setRaffles] = useState<Raffle[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(function fetchRaffles() {
+    async function getRaffles() {
+      try {
+        const data = await raffleService.getRaffles()
+        setRaffles(data)
+      } catch (error) {
+        console.error('Failed to fetch raffles:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getRaffles()
+  }, [])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  const activeRaffles = raffles.filter((raffle) => !raffle.isEnded)
+  const endedRaffles = raffles.filter((raffle) => raffle.isEnded)
+
   return (
     <Container>
       <Section>
         <SectionTitle>진행 중인 래플 목록</SectionTitle>
         <RaffleList>
-          <RaffleCard
-            title="귀여운 수면바지"
-            description="적당한 설명"
-            onParticipate={() => console.log('참여!')}
-          />
-          <RaffleCard
-            title="이쁜 슬리퍼"
-            description="적당한 설명"
-            onParticipate={() => console.log('참여!')}
-          />
+          {activeRaffles.map((raffle) => (
+            <RaffleCard
+              key={raffle.id}
+              title={raffle.title}
+              description={raffle.description}
+              imageUrl={raffle.imageUrl}
+              onParticipate={() => console.log('참여!', raffle.id)}
+            />
+          ))}
         </RaffleList>
       </Section>
 
       <Section>
         <SectionTitle>끝난 래플 목록</SectionTitle>
         <RaffleList>
-          <RaffleCard
-            title="끝난 래플 1"
-            description="적당한 설명"
-            isEnded
-            onParticipate={() => console.log('결과 보기')}
-          />
-          <RaffleCard
-            title="끝난 래플 2"
-            description="적당한 설명"
-            isEnded
-            onParticipate={() => console.log('결과 보기')}
-          />
+          {endedRaffles.map((raffle) => (
+            <RaffleCard
+              key={raffle.id}
+              title={raffle.title}
+              description={raffle.description}
+              imageUrl={raffle.imageUrl}
+              isEnded
+              onParticipate={() => console.log('결과 보기', raffle.id)}
+            />
+          ))}
         </RaffleList>
       </Section>
     </Container>
