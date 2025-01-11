@@ -3,6 +3,7 @@ import type { HardhatUserConfig } from 'hardhat/config'
 import '@nomicfoundation/hardhat-toolbox-viem'
 import '@nomicfoundation/hardhat-ethers'
 import './tasks/raffle'
+import './tasks/randomNumber'
 
 const { RPC_ENDPOINT, DEPLOYER_PRIVATE_KEY } = process.env
 
