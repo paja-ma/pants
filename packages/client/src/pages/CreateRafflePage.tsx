@@ -5,6 +5,10 @@ import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import { ImageUploader } from '@/components/common/ImageUploader'
 import { writeExample } from '@/hooks/writeExample'
+import { useSmartWallets } from '@privy-io/react-auth/smart-wallets'
+import { deployContract } from 'viem/actions'
+import { deployArgs } from '@/hooks/deploy'
+import { encodeDeployData } from 'viem'
 
 export function CreateRafflePage() {
   const navigate = useNavigate()
@@ -13,13 +17,33 @@ export function CreateRafflePage() {
   const [maxParticipants, setMaxParticipants] = useState('')
   const [image, setImage] = useState<File | null>(null)
 
+  const { client } = useSmartWallets()
+
   const handleSubmit = async (e: React.FormEvent) => {
+    if (!client) return
+
+    const { abi, args, bytecode, ...request } = deployArgs()
+
+    const callData = encodeDeployData({ abi, args, bytecode })
+
+    const res = await client.sendTransaction(
+      {
+        // ...request,
+        data: callData,
+      },
+      { uiOptions: { showWalletUIs: true } }
+    )
+
+    console.log(res)
+
+    // deployContract(client, deployArgs(client.account))
+
     e.preventDefault()
     // TODO: API 연동
     console.log({ title, description, maxParticipants, image })
-    const res = await writeExample('haha')
-    console.log('Create Raffle Response:', res)
-    navigate('/')
+    // const res = await writeExample('haha')
+    // console.log('Create Raffle Response:', res)
+    // navigate('/')
   }
 
   return (

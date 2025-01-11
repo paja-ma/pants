@@ -8,6 +8,7 @@ import { env } from '@/env'
 import { AppRoutes } from '@/routes'
 import '@/styles/global.css'
 import './App.css'
+import { SmartWalletsProvider } from '@privy-io/react-auth/smart-wallets'
 
 const queryClient = new QueryClient()
 
@@ -15,11 +16,13 @@ function App() {
   return (
     <BrowserRouter>
       <PrivyProvider appId={env.VITE_PRIVY_APP_ID} config={privyConfig}>
-        <QueryClientProvider client={queryClient}>
-          <WagmiProvider config={wagmiConfig}>
-            <AppRoutes />
-          </WagmiProvider>
-        </QueryClientProvider>
+        <SmartWalletsProvider>
+          <QueryClientProvider client={queryClient}>
+            <WagmiProvider config={wagmiConfig}>
+              <AppRoutes />
+            </WagmiProvider>
+          </QueryClientProvider>
+        </SmartWalletsProvider>
       </PrivyProvider>
     </BrowserRouter>
   )
