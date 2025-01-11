@@ -55,9 +55,6 @@ export function RaffleDetailPage() {
     return <div>Loading...</div>
   }
 
-  const showParticipateButton = !raffle.isEnded && !raffle.isCreator
-  const showEndRaffleButton = !raffle.isEnded && raffle.isCreator
-
   return (
     <Container>
       <ContentWrapper>
@@ -77,31 +74,40 @@ export function RaffleDetailPage() {
           </Card>
         </Section>
 
-        <Section>
-          <SectionTitle>래플 응모 현황</SectionTitle>
-          <Card>
-            <ParticipantsBox>
-              <ParticipantsCount>
-                현재 {raffle.participantsCount}명 참여중
-              </ParticipantsCount>
-            </ParticipantsBox>
-          </Card>
-        </Section>
+        {raffle.isEnded ? (
+          // 종료된 래플 UI
+          <>
+            <Section>
+              <SectionTitle>당첨 코드 디코딩(?)</SectionTitle>
+              <Card>
+                <PlaceholderBox />
+              </Card>
+            </Section>
 
-        <Section>
-          <SectionTitle>주르륵</SectionTitle>
-          <Card>
-            <TablePlaceholder />
-          </Card>
-        </Section>
+            <Section>
+              <SectionTitle>래플 당첨 결과 주르륵</SectionTitle>
+              <Card>
+                <PlaceholderBox />
+              </Card>
+            </Section>
+          </>
+        ) : (
+          // 진행 중인 래플 UI
+            <Section>
+              <SectionTitle>래플 응모 대기 주르륵</SectionTitle>
+              <Card>
+                <PlaceholderBox />
+              </Card>
+            </Section>
+        )}
 
         <ButtonSection>
-          {showParticipateButton && (
+          {!raffle.isEnded && !raffle.isCreator && (
             <ParticipateButton onClick={handleParticipate}>
               응모하기
             </ParticipateButton>
           )}
-          {showEndRaffleButton && (
+          {!raffle.isEnded && raffle.isCreator && (
             <EndRaffleButton onClick={handleEndRaffle}>
               래플 종료하기
             </EndRaffleButton>
@@ -174,23 +180,6 @@ const EndRaffleButton = styled(Button)`
   }
 `
 
-const ParticipantsBox = styled.div`
-  padding: 16px;
-`
-
-const ParticipantsCount = styled.p`
-  font-size: 16px;
-  color: #495057;
-  margin: 0;
-`
-
-const TablePlaceholder = styled.div`
-  width: 100%;
-  height: 200px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-`
-
 const RaffleImage = styled.img`
   width: 100%;
   height: 240px;
@@ -229,4 +218,12 @@ const ParticipateButton = styled(Button)`
     background-color: #adb5bd;
     cursor: not-allowed;
   }
+`
+
+const PlaceholderBox = styled.div`
+  width: 100%;
+  height: 120px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 16px 0;
 `
