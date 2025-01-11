@@ -1,0 +1,15 @@
+{
+  "name": "pajama",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "dotenv -- pnpm -F @pajama/client",
+    "contract": "pnpm -F @pajama/contract",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
