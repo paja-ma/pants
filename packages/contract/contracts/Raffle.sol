@@ -2,63 +2,85 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract Raffle {
+    address private owner;
 
+    string public title;
+    string public description;
+    string public imageURL;
+
+    Participant[] participants;
+
+    uint public numberOfWinners;
+    Participant public winner;
+
+    bool public isClosed;
+    
     struct Participant {
         address id;
         string nickname;
     }
 
-    Participant[] private participants;
+    Raffle[] private raffles;
 
-    address private owner;
-
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Caller is not owner");
-        _;
-    }
-
-    constructor() {
+    constructor(
+        string memory initTitle,
+        string memory initDescription,
+        uint initNumberOfWinners,
+        string memory initImageURL
+    ) {
+        title = initTitle;
+        description = initDescription;
+        numberOfWinners = initNumberOfWinners;
+        imageURL = initImageURL;
+        isClosed = false;
         owner = msg.sender;
     }
 
-    function getParticipantCount() public view returns (uint) {
-        return participants.length;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Caller is not owner.");
+        _;
     }
 
-    function getParticipants() public view onlyOwner returns (Participant[] memory) {
-        return participants;
+    modifier exceptOwner() {
+        require(msg.sender != owner, "Owner cannot participate in the raffle.");
+        _;
     }
 
-    function register(string memory _nickname) public returns (string memory) {
-        // check if the participant is already registered
+    function initParticipants() public onlyOwner {
+        delete participants;
+    }
+
+    function registerParticipant(string memory nickname) public exceptOwner returns (string memory) {
+        require(isClosed, "Raffle is closed.");
+        
         if (participants.length > 0) {
             for (uint i = 0; i < participants.length; i++) {
                 if (participants[i].id == msg.sender) {
-                    return string(abi.encodePacked("Participant already registered!"));
+                    return string(abi.encodePacked("Participant already registered."));
                 }
             }
         }
-        participants.push(Participant(msg.sender, _nickname));
-        return string(abi.encodePacked("Participant registered successfully!"));   
+        participants.push(Participant(msg.sender, nickname));
+        return string(abi.encodePacked("Participant registered successfully."));   
     }
 
 
-    function pickWinner() public view onlyOwner returns (string memory) {
-        require(participants.length > 0, "No participants registered!");
+    function drawWinner() public onlyOwner returns (Participant memory) {
+        require(participants.length > 0, "No participants registered.");
+        require(!isClosed, "Raffle is still open.");
 
         uint winnerIndex = uint(keccak256(abi.encodePacked(block.timestamp))) % participants.length;
 
-        Participant memory winner;
         for (uint i = 0; i < participants.length; i++) {
             if (i == winnerIndex) {
                 winner = participants[i];
                 break;
             }
         }
-        return string(abi.encodePacked("Winner is: ", winner.nickname));
+        return winner;
     }
 
-    function initParticipants() public onlyOwner {
-        delete participants;
+    function closeRaffle() public onlyOwner {
+        isClosed = true;
     }
 }
