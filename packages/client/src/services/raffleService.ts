@@ -5,7 +5,10 @@ import { Raffle, RaffleDetail } from '../types/raffle'
 export const raffleService = {
   async getRaffles(): Promise<Raffle[]> {
     await new Promise((resolve) => setTimeout(resolve, 500))
-    return raffleData.raffles
+    return raffleData.raffles.map(({ numberOfWinners, ...el }) => ({
+      ...el,
+      numberOfWinners: BigInt(numberOfWinners),
+    }))
   },
 
   async getRaffleDetail(id: string): Promise<RaffleDetail> {
@@ -15,6 +18,7 @@ export const raffleService = {
 
     return {
       ...raffle,
+      numberOfWinners: BigInt(raffle.numberOfWinners),
       isCreator: raffle.creator.id === MOCK_USER_ID,
       participantsCount: 42, // 목업 데이터
     }
