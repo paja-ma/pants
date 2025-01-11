@@ -8,6 +8,7 @@ import { usePrivy } from '@privy-io/react-auth'
 import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
 import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
 import { CTA } from '@/components/CTA'
+import { Logo } from '@/components/Logo'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
@@ -58,7 +59,7 @@ export function HomePage() {
   return (
     <>
       <header className={styles.header}>
-        <h1 className={styles.headerTitle}>래플잇</h1>
+        <Logo w={108} h={32} />
         <Link to="/my" className={styles.myProfileLink}>
           My
         </Link>
