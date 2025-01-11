@@ -4,11 +4,8 @@ import styled from '@emotion/styled'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import { ImageUploader } from '@/components/common/ImageUploader'
-import { writeExample } from '@/hooks/writeExample'
-import { useSmartWallets } from '@privy-io/react-auth/smart-wallets'
-import { deployContract } from 'viem/actions'
 import { deployArgs } from '@/hooks/deploy'
-import { encodeDeployData } from 'viem'
+import { useDeployContract } from 'wagmi'
 
 export function CreateRafflePage() {
   const navigate = useNavigate()
@@ -17,28 +14,21 @@ export function CreateRafflePage() {
   const [maxParticipants, setMaxParticipants] = useState('')
   const [image, setImage] = useState<File | null>(null)
 
-  const { client } = useSmartWallets()
-
+  const { deployContractAsync } = useDeployContract()
   const handleSubmit = async (e: React.FormEvent) => {
-    if (!client) return
+    e.preventDefault()
 
-    const { abi, args, bytecode, ...request } = deployArgs()
+    // Logs the smart wallet's address
 
-    const callData = encodeDeployData({ abi, args, bytecode })
+    // const signed = await client.signMessage({ message: callData })
+    // console.log({ signed })
 
-    const res = await client.sendTransaction(
-      {
-        // ...request,
-        data: callData,
-      },
-      { uiOptions: { showWalletUIs: true } }
-    )
+    const res = await deployContractAsync(deployArgs)
 
     console.log(res)
 
     // deployContract(client, deployArgs(client.account))
 
-    e.preventDefault()
     // TODO: API 연동
     console.log({ title, description, maxParticipants, image })
     // const res = await writeExample('haha')
@@ -58,7 +48,7 @@ export function CreateRafflePage() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="래플의 제목을 입력해주세요"
-                  required
+                  // required
                 />
               </FormGroup>
 
@@ -68,7 +58,7 @@ export function CreateRafflePage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="래플에 대한 설명을 입력해주세요"
-                  required
+                  // required
                 />
               </FormGroup>
 
@@ -86,7 +76,7 @@ export function CreateRafflePage() {
                   value={maxParticipants}
                   onChange={(e) => setMaxParticipants(e.target.value)}
                   placeholder="당첨자 수를 입력해주세요"
-                  required
+                  // required
                   min="1"
                 />
               </FormGroup>
