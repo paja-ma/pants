@@ -1,6 +1,5 @@
 import { ethers } from 'hardhat'
-
-export const RANDOM_NUMBER_CONTRACT = 'RandomNumber'
+import { RANDOM_NUMBER_CONTRACT } from '../consts'
 
 async function main() {
   // https://vrf.chain.link/
@@ -11,7 +10,7 @@ async function main() {
   const [deployer] = await ethers.getSigners()
   console.log('Deploying contract with the account:', deployer.address)
 
-  const helloNodit = await ethers.deployContract('RandomNumber', [
+  const helloNodit = await ethers.deployContract(RANDOM_NUMBER_CONTRACT, [
     chainlinkVRFsubscriptionId,
   ])
   await helloNodit.waitForDeployment()

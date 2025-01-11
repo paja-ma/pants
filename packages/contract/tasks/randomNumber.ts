@@ -1,5 +1,5 @@
 import { task } from 'hardhat/config'
-import { RANDOM_NUMBER_CONTRACT } from '../scripts/deploy.randomNumber'
+import { RANDOM_NUMBER_CONTRACT } from '../consts'
 
 interface DefaultTaskArgs {
   contract: string
