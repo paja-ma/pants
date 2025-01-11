@@ -38,6 +38,7 @@ export function HomePage() {
           {activeRaffles.map((raffle) => (
             <RaffleCard
               key={raffle.id}
+              id={raffle.id}
               title={raffle.title}
               description={raffle.description}
               imageUrl={raffle.imageUrl}
@@ -53,6 +54,7 @@ export function HomePage() {
           {endedRaffles.map((raffle) => (
             <RaffleCard
               key={raffle.id}
+              id={raffle.id}
               title={raffle.title}
               description={raffle.description}
               imageUrl={raffle.imageUrl}

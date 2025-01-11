@@ -1,8 +1,10 @@
 import styled from '@emotion/styled'
 import { Card } from './common/Card'
 import { Button } from './common/Button'
+import { useNavigate } from 'react-router-dom'
 
 interface RaffleCardProps {
+  id: string
   title: string
   description: string
   imageUrl?: string
@@ -12,6 +14,7 @@ interface RaffleCardProps {
 }
 
 export function RaffleCard({
+  id,
   title,
   description,
   imageUrl,
@@ -19,13 +22,24 @@ export function RaffleCard({
   isActive = true,
   isEnded = false,
 }: RaffleCardProps) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/raffle/${id}`)
+  }
+
+  const handleParticipate = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    onParticipate()
+  }
+
   return (
-    <Card>
+    <StyledCard onClick={handleClick}>
       <ContentWrapper>
         <TextContent>
           <Title>{title}</Title>
           <Description>{description}</Description>
-          <Button onClick={onParticipate} disabled={!isActive || isEnded}>
+          <Button onClick={handleParticipate} disabled={!isActive || isEnded}>
             {isEnded ? '응모 결과 보기' : '응모 ㄱㄱ'}
           </Button>
         </TextContent>
@@ -37,9 +51,18 @@ export function RaffleCard({
           )}
         </ImageWrapper>
       </ContentWrapper>
-    </Card>
+    </StyledCard>
   )
 }
+
+const StyledCard = styled(Card)`
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+`
 
 const ContentWrapper = styled.div`
   display: flex;

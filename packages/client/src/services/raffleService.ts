@@ -1,10 +1,27 @@
 import raffleData from '../mocks/raffles.json'
-import { Raffle } from '../types/raffle'
+import { MOCK_USER_ID } from '../mocks/constants'
+import { Raffle, RaffleDetail } from '../types/raffle'
 
 export const raffleService = {
   async getRaffles(): Promise<Raffle[]> {
-    // API 호출을 시뮬레이션하기 위한 인위적인 딜레이
     await new Promise((resolve) => setTimeout(resolve, 500))
     return raffleData.raffles
+  },
+
+  async getRaffleDetail(id: string): Promise<RaffleDetail> {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    const raffle = raffleData.raffles.find((r) => r.id === id)
+    if (!raffle) throw new Error('Raffle not found')
+
+    return {
+      ...raffle,
+      isCreator: raffle.creatorId === MOCK_USER_ID,
+      participantsCount: 42, // 목업 데이터
+    }
+  },
+
+  async endRaffle(id: string): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    console.log('Ending raffle:', id)
   },
 }

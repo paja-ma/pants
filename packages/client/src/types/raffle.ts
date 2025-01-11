@@ -6,4 +6,10 @@ export interface Raffle {
   isEnded: boolean
   createdAt: string
   endedAt?: string
+  creatorId?: string
+}
+
+export interface RaffleDetail extends Raffle {
+  participantsCount?: number
+  isCreator?: boolean
 }
