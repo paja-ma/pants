@@ -29,6 +29,7 @@ export function HomePage() {
 
   const activeRaffles = raffles.filter((raffle) => !raffle.isEnded)
   const endedRaffles = raffles.filter((raffle) => raffle.isEnded)
+  // const endedRaffles: Raffle[] = []
 
   return (
     <>
