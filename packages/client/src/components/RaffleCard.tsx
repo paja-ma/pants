@@ -20,7 +20,7 @@ export function RaffleCard({
   isEnded = false,
 }: RaffleCardProps) {
   return (
-    <StyledCard>
+    <Card>
       <ContentWrapper>
         <TextContent>
           <Title>{title}</Title>
@@ -37,15 +37,9 @@ export function RaffleCard({
           )}
         </ImageWrapper>
       </ContentWrapper>
-    </StyledCard>
+    </Card>
   )
 }
-
-const StyledCard = styled(Card)`
-  width: 100%;
-  max-width: 800px;
-  margin: 16px 0;
-`
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -61,6 +55,7 @@ const TextContent = styled.div`
 `
 
 const Title = styled.h3`
+  text-align: left;
   font-size: 18px;
   font-weight: 600;
   color: #212529;
@@ -68,6 +63,7 @@ const Title = styled.h3`
 `
 
 const Description = styled.p`
+  text-align: left;
   font-size: 14px;
   color: #495057;
   margin: 0;
