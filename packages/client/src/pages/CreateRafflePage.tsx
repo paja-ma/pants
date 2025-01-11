@@ -1,44 +1,54 @@
-import { useState } from 'react'
+import { type FormEvent, useState } from 'react'
 import styled from '@emotion/styled'
+import { getTransaction } from '@wagmi/core'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import { ImageUploader } from '@/components/common/ImageUploader'
 import { deployArgs } from '@/hooks/deploy'
 import { useDeployContract } from 'wagmi'
+import { useNavigate } from 'react-router-dom'
+import { wagmiConfig } from '@/configs/wagmi.ts'
 
 export function CreateRafflePage() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [maxParticipants, setMaxParticipants] = useState('')
-  const [image, setImage] = useState<File | null>(null)
 
+  const navigate = useNavigate()
   const { deployContractAsync } = useDeployContract()
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    // Logs the smart wallet's address
+    const data = e.target as unknown as {
+      title: { value: string }
+      description: { value: string }
+      maxParticipants: { value: number }
+    }
 
-    // const signed = await client.signMessage({ message: callData })
-    // console.log({ signed })
-
-    const res = await deployContractAsync(
+    const transactionAddress = await deployContractAsync(
       deployArgs({
-        title: 'test',
-        description: 'test',
-        maxParticipants: 1,
-        imageUrl: 'https://test',
+        title: data.title.value,
+        description: data.description.value,
+        maxParticipants: data.maxParticipants.value,
+        imageUrl:
+          'https://media.licdn.com/dms/image/v2/D560BAQFU2h_sBVJbqw/company-logo_200_200/company-logo_200_200/0/1707983142205/dunamu_logo?e=1744848000&v=beta&t=AqLxRfF_N3uICBTzPm51S_QI4SwLeb9oxGRlNgPH7oY',
       })
     )
 
-    console.log(res)
+    console.table({
+      transactionAddress,
+      title: data.title.value,
+      description: data.description.value,
+      maxParticipants: data.maxParticipants.value,
+    })
 
-    // deployContract(client, deployArgs(client.account))
+    const { to: contractAddress } = await getTransaction(wagmiConfig, {
+      hash: transactionAddress,
+    })
 
-    // TODO: API 연동
-    console.log({ title, description, maxParticipants, image })
-    // const res = await writeExample('haha')
-    // console.log('Create Raffle Response:', res)
-    // navigate('/')
+    console.log('contractAddress:', contractAddress)
+
+    navigate(`/`)
   }
 
   return (
@@ -50,6 +60,7 @@ export function CreateRafflePage() {
               <FormGroup>
                 <Label>제목</Label>
                 <Input
+                  name="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="래플의 제목을 입력해주세요"
@@ -60,6 +71,7 @@ export function CreateRafflePage() {
               <FormGroup>
                 <Label>설명</Label>
                 <TextArea
+                  name="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="래플에 대한 설명을 입력해주세요"
@@ -69,7 +81,7 @@ export function CreateRafflePage() {
 
               <FormGroup>
                 <Label>사진</Label>
-                <ImageUploader onImageChange={setImage} />
+                <ImageUploader onImageChange={() => {}} />
               </FormGroup>
 
               <FormGroup>
@@ -77,6 +89,7 @@ export function CreateRafflePage() {
                   몇 명 당첨? <MaxText>(max는 고정넘버)</MaxText>
                 </Label>
                 <Input
+                  name="maxParticipants"
                   type="number"
                   value={maxParticipants}
                   onChange={(e) => setMaxParticipants(e.target.value)}

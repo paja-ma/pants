@@ -1,7 +1,7 @@
 {
   "raffles": [
     {
-      "id": "1",
+      "id": "0x7b09D796b14530442554E40a47239dBF955cf738",
       "title": "귀여운 수면바지",
       "description": "편안한 잠자리를 위한 최고의 선택",
       "participants": 382,
@@ -15,7 +15,7 @@
       "createdAt": "2024-03-15T00:00:00Z"
     },
     {
-      "id": "2",
+      "id": "0x9f68fe146cd466E71159C747C2899b468e132e0e",
       "title": "이쁜 슬리퍼",
       "description": "봄을 위한 새로운 슬리퍼",
       "participants": 12,
@@ -29,7 +29,7 @@
       "createdAt": "2024-03-14T00:00:00Z"
     },
     {
-      "id": "3",
+      "id": "0x22e6326F94ec4AE783F90Cc5b7B1a24d80131Cf1",
       "title": "끝난 래플 1",
       "description": "이미 종료된 래플입니다",
       "participants": 12,
@@ -44,7 +44,7 @@
       "endedAt": "2024-03-13T00:00:00Z"
     },
     {
-      "id": "4",
+      "id": "0x7b09D796b14530442554E40a47239dBF955cf738",
       "title": "끝난 래플 2",
       "description": "지난 주에 종료된 래플",
       "participants": 12,
