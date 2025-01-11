@@ -22,7 +22,9 @@ export function Header() {
           )}
         </LeftSection>
         <CenterSection>
-          <Logo size={28} />
+          <LogoWrapper onClick={() => navigate('/')}>
+            <Logo size={28} />
+          </LogoWrapper>
         </CenterSection>
         <RightSection>
           <HeaderButton>마이</HeaderButton>
@@ -97,5 +99,16 @@ const HeaderButton = styled.button`
 
   &:hover {
     color: #212529;
+  }
+`
+
+const LogoWrapper = styled.div`
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f8f9fa;
   }
 `
