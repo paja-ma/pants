@@ -21,7 +21,14 @@ export function CreateRafflePage() {
     // const signed = await client.signMessage({ message: callData })
     // console.log({ signed })
 
-    const res = await deployContractAsync(deployArgs)
+    const res = await deployContractAsync(
+      deployArgs({
+        title: 'test',
+        description: 'test',
+        maxParticipants: 1,
+        imageUrl: 'https://test',
+      })
+    )
 
     console.log(res)
 

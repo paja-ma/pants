@@ -1,7 +1,20 @@
 import raffle from '@/_generated/Raffle.json'
 
-export const deployArgs = {
-  abi: raffle.abi,
-  bytecode: raffle.bytecode as `0x${string}`,
-  args: ['hello'],
-} as const
+interface Props {
+  title: string
+  description: string
+  maxParticipants: number
+  imageUrl: string
+}
+
+export const deployArgs = ({
+  title,
+  description,
+  maxParticipants,
+  imageUrl,
+}: Props) =>
+  ({
+    abi: raffle.abi,
+    bytecode: raffle.bytecode as `0x${string}`,
+    args: [title, description, maxParticipants, imageUrl],
+  } as const)
