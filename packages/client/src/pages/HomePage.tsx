@@ -7,6 +7,7 @@ import styles from './HomePage.module.css'
 import { usePrivy } from '@privy-io/react-auth'
 import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
 import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
+import { CTA } from '@/components/CTA'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
@@ -84,6 +85,7 @@ export function HomePage() {
           </ul>
         </section>
       </main>
+      <CTA>만들기</CTA>
       <Link to="/raffle/create" className={styles.createRaffleButton}>
         래플 만들기
       </Link>
