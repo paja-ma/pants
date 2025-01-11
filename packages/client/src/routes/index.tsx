@@ -6,6 +6,7 @@ import { HomePage } from '../pages/HomePage'
 import { Layout } from '../components/Layout'
 import { RaffleDetailPage } from '../pages/RaffleDetailPage'
 import { CreateRafflePage } from '../pages/CreateRafflePage'
+import { MyPage } from '../pages/MyPage'
 
 export function AppRoutes() {
   const { authenticated } = usePrivy()
@@ -42,6 +43,16 @@ export function AppRoutes() {
           <ProtectedRoute>
             <Layout>
               <CreateRafflePage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <MyPage />
             </Layout>
           </ProtectedRoute>
         }

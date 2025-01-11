@@ -27,7 +27,7 @@ export function Header() {
           </LogoWrapper>
         </CenterSection>
         <RightSection>
-          <HeaderButton>마이</HeaderButton>
+          <HeaderButton onClick={() => navigate('/my')}>마이</HeaderButton>
         </RightSection>
       </HeaderContent>
     </HeaderWrapper>
