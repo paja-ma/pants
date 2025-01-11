@@ -1,18 +1,19 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import type { Address } from 'viem'
 import styled from '@emotion/styled'
-import { Button } from '../components/common/Button'
-import { Card } from '../components/common/Card'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card'
 import useRaffleDetail from '@/hooks/useRaffleDetail'
 
 export function RaffleDetailPage() {
-  const { id } = useParams<{ id: `${string}` }>()
+  const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
   if (!id) {
     navigate('/')
   }
 
-  const raffle = useRaffleDetail(id as `0x${string}`)
+  const raffle = useRaffleDetail(id as Address)
 
   const handleParticipate = async () => {
     if (!id) return
@@ -37,7 +38,7 @@ export function RaffleDetailPage() {
               <MainInfo>
                 <Title>{raffle.title}</Title>
                 <Description>{raffle.description}</Description>
-                {raffle.numberOfWinners} 명 추첨
+                {raffle.numberOfWinners?.toString() ?? '?'} 명 추첨
                 {raffle.imageUrl ? (
                   <RaffleImage src={raffle.imageUrl} alt={raffle.title} />
                 ) : (

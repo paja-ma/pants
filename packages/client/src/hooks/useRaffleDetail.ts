@@ -1,39 +1,40 @@
-import { RaffleDetail } from '@/types/raffle'
+import type { Address } from 'viem'
 import { useReadContract } from 'wagmi'
-import { deployArgs } from './deploy'
+import { RaffleDetail } from '@/types/raffle'
+import raffle from '@/_generated/Raffle.json'
 
-const useRaffleDetail = (address: `0x${string}`): RaffleDetail => {
+const useRaffleDetail = (address: Address): RaffleDetail => {
   const { data: title } = useReadContract({
-    abi: deployArgs.abi,
-    address,
+    abi: raffle.abi,
+    address: address,
     functionName: 'title',
   })
 
   const { data: description } = useReadContract({
-    abi: deployArgs.abi,
-    address,
+    abi: raffle.abi,
+    address: address,
     functionName: 'description',
   })
 
   const { data: numberOfWinners } = useReadContract({
-    abi: deployArgs.abi,
-    address,
+    abi: raffle.abi,
+    address: address,
     functionName: 'numberOfWinners',
   })
   console.debug('numberOfWinners:', typeof numberOfWinners)
 
   const { data: isClosed } = useReadContract({
-    abi: deployArgs.abi,
-    address,
+    abi: raffle.abi,
+    address: address,
     functionName: 'isClosed',
   })
 
   return {
     id: address,
-    title: title as string,
-    description: description as string,
-    numberOfWinners: (numberOfWinners as bigint).toString(),
-    isClosed: isClosed as boolean,
+    title: title as string | undefined,
+    description: description as string | undefined,
+    numberOfWinners: numberOfWinners as bigint | undefined,
+    isClosed: isClosed as boolean | undefined,
   }
 }
 

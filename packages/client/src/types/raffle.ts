@@ -1,16 +1,16 @@
 export interface Raffle {
   id: string
-  title: string
-  description: string
+  title?: string
+  description?: string
   participants?: number
-  numberOfWinners: string // bigint
+  numberOfWinners?: bigint
   creator?: {
     id: string
     name: string
     avatarUrl: string
   }
   imageUrl?: string
-  isClosed: boolean
+  isClosed?: boolean
   createdAt?: string
   endedAt?: string
 }
