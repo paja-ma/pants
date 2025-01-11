@@ -12,7 +12,7 @@ export default {
   networks: {
     sepolia: {
       url: RPC_ENDPOINT,
-      accounts: [DEPLOYER_PRIVATE_KEY || ''],
+      accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
     },
   },
   defaultNetwork: 'sepolia',
