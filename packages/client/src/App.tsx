@@ -1,7 +1,8 @@
 import './App.css'
 import { PrivyProvider } from '@privy-io/react-auth'
+import { BrowserRouter } from 'react-router-dom'
 import { env } from './env'
-import { LoginPage } from './pages/LoginPage'
+import { AppRoutes } from './routes'
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         },
       }}
     >
-      <LoginPage />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </PrivyProvider>
   )
 }
