@@ -1,7 +1,7 @@
 // 1. Hardhat으로 컴파일된 ABI와 bytecode 가져오기
 
 import { deployContract } from 'wagmi/actions'
-import { Account, parseEther } from 'viem'
+import { Account } from 'viem'
 
 import { wagmiConfig } from '../configs/wagmi'
 
