@@ -1,8 +1,8 @@
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy, useWallets } from '@privy-io/react-auth'
 
 export function LoginPage() {
-  const { login, authenticated, user } = usePrivy();
-  const { ready, wallets } = useWallets();
+  const { login, user } = usePrivy()
+  const { wallets } = useWallets()
 
   return (
     <>
@@ -13,5 +13,5 @@ export function LoginPage() {
       userId: {user?.id}
       <p>{wallets.map((wallet) => wallet.address)}</p>
     </>
-  );
+  )
 }
