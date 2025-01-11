@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
@@ -8,7 +7,6 @@ import { deployArgs } from '@/hooks/deploy'
 import { useDeployContract } from 'wagmi'
 
 export function CreateRafflePage() {
-  const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [maxParticipants, setMaxParticipants] = useState('')
