@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "dotenv -- pnpm -F @pajama/client",
+    "client": "pnpm -F @pajama/client",
     "contract": "pnpm -F @pajama/contract",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
