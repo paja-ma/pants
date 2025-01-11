@@ -1,27 +1,14 @@
-import styled from '@emotion/styled'
 import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
+import styles from './Layout.module.css'
 
 export function Layout() {
   return (
-    <LayoutWrapper>
+    <div className={styles.wrapper}>
       <Header />
-      <Main>
+      <main className={styles.main}>
         <Outlet />
-      </Main>
-    </LayoutWrapper>
+      </main>
+    </div>
   )
 }
-
-const LayoutWrapper = styled.div`
-  min-height: 100vh;
-  min-width: 100vw;
-  width: 100%;
-  background: #f8f9fa;
-`
-
-const Main = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`
