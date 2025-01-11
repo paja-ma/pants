@@ -4,10 +4,14 @@ import { RaffleCard } from '@/components/RaffleCard'
 import { raffleService } from '@/services/raffleService'
 import type { Raffle } from '@/types/raffle'
 import styles from './HomePage.module.css'
+import { usePrivy } from '@privy-io/react-auth'
+import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
+import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { user } = usePrivy()
 
   useEffect(() => {
     async function getRaffles() {
@@ -20,8 +24,27 @@ export function HomePage() {
         setIsLoading(false)
       }
     }
+
     getRaffles()
   }, [])
+
+  useEffect(() => {
+    if (!user?.wallet) return
+    ;(async () => {
+      const { items: myTransactions } = await getTransactionsByAccount({
+        protocol: 'ethereum',
+        network: 'sepolia',
+        address: user!.wallet!.address,
+        relation: 'from',
+      })
+      console.log('myTransactions', myTransactions)
+
+      const participantAddresses = await getParticipantAddressesOfRaffle(
+        '0x7b09D796b14530442554E40a47239dBF955cf738'
+      )
+      console.log('participants', participantAddresses)
+    })()
+  }, [user, user?.wallet])
 
   if (isLoading) {
     return <div>Loading...</div>
