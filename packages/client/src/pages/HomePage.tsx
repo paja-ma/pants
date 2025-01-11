@@ -85,9 +85,9 @@ export function HomePage() {
           </ul>
         </section>
       </main>
-      <CTA>만들기</CTA>
-      <Link to="/raffle/create" className={styles.createRaffleButton}>
-        래플 만들기
+
+      <Link to="/raffle/create">
+        <CTA>래플 만들기</CTA>
       </Link>
     </>
   )

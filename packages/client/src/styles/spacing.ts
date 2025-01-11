@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
 
-const style = (attribute: string) => (value: number) =>
-  css`
-    ${attribute}: ${value}px;
-  `
+const style = (attribute: string) => (value: number | string) =>
+  css({
+    [attribute]: value,
+  })
 
 const applyPrefix = (prefix: 'padding' | 'margin') =>
   Object.assign(style(prefix), {

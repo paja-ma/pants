@@ -31,6 +31,7 @@ button {
     color: inherit;
 }
 button:focus {
+    -webkit-tap-highlight-color: transparent;
     outline: 0;
 }
 
