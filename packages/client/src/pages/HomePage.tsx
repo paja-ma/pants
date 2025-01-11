@@ -5,8 +5,6 @@ import { raffleService } from '@/services/raffleService'
 import type { Raffle } from '@/types/raffle'
 import styles from './HomePage.module.css'
 
-import writeExample from '../hooks/writeExample'
-
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -62,12 +60,9 @@ export function HomePage() {
           </ul>
         </section>
       </main>
-      <button
-        onClick={() => writeExample('haha')}
-        className={styles.createRaffleButton}
-      >
+      <Link to="/raffle/create" className={styles.createRaffleButton}>
         래플 만들기
-      </button>
+      </Link>
     </>
   )
 }

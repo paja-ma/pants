@@ -42,13 +42,11 @@ const abi = [
   },
 ]
 
-const writeExample = async (message: string) => {
-  writeContract(wagmiConfig, {
+export const writeExample = async (message: string) => {
+  return await writeContract(wagmiConfig, {
     address: '0x25b4554070b7BC1823Fe0612405fbb8f3f7C02Dd',
     abi,
     functionName: 'updateMessage',
     args: [message],
   })
 }
-
-export default writeExample

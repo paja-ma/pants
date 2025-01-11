@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Card } from '../components/common/Card'
-import { Button } from '../components/common/Button'
-import { ImageUploader } from '../components/common/ImageUploader'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card'
+import { ImageUploader } from '@/components/common/ImageUploader'
+import { writeExample } from '@/hooks/writeExample'
 
 export function CreateRafflePage() {
   const navigate = useNavigate()
@@ -16,6 +17,8 @@ export function CreateRafflePage() {
     e.preventDefault()
     // TODO: API 연동
     console.log({ title, description, maxParticipants, image })
+    const res = await writeExample('haha')
+    console.log('Create Raffle Response:', res)
     navigate('/')
   }
 
