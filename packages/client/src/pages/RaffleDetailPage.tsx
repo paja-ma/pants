@@ -31,10 +31,6 @@ export function RaffleDetailPage() {
     [id]
   )
 
-  if (isLoading || !raffle) {
-    return <div>Loading...</div>
-  }
-
   const handleEndRaffle = async () => {
     if (!id) return
     try {
@@ -44,6 +40,23 @@ export function RaffleDetailPage() {
       console.error('Failed to end raffle:', error)
     }
   }
+
+  const handleParticipate = async () => {
+    if (!id) return
+    try {
+      // TODO: API 연동
+      console.log('Participating in raffle:', id)
+    } catch (error) {
+      console.error('Failed to participate in raffle:', error)
+    }
+  }
+
+  if (isLoading || !raffle) {
+    return <div>Loading...</div>
+  }
+
+  const showParticipateButton = !raffle.isEnded && !raffle.isCreator
+  const showEndRaffleButton = !raffle.isEnded && raffle.isCreator
 
   return (
     <Container>
@@ -82,13 +95,18 @@ export function RaffleDetailPage() {
           </Card>
         </Section>
 
-        {raffle.isCreator && !raffle.isEnded && (
-          <EndRaffleSection>
+        <ButtonSection>
+          {showParticipateButton && (
+            <ParticipateButton onClick={handleParticipate}>
+              응모하기
+            </ParticipateButton>
+          )}
+          {showEndRaffleButton && (
             <EndRaffleButton onClick={handleEndRaffle}>
               래플 종료하기
             </EndRaffleButton>
-          </EndRaffleSection>
-        )}
+          )}
+        </ButtonSection>
       </ContentWrapper>
     </Container>
   )
@@ -144,12 +162,6 @@ const SectionTitle = styled.h2`
   margin: 0;
 `
 
-const EndRaffleSection = styled.div`
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-`
-
 const EndRaffleButton = styled(Button)`
   background-color: #fa5252;
   color: white;
@@ -193,4 +205,28 @@ const RaffleImagePlaceholder = styled.div`
   background-color: #f8f9fa;
   border-radius: 8px;
   margin-top: 16px;
+`
+
+const ButtonSection = styled.div`
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+`
+
+const ParticipateButton = styled(Button)`
+  padding: 12px 48px;
+  font-size: 16px;
+  background-color: #228be6;
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: #1c7ed6;
+  }
+
+  &:disabled {
+    background-color: #adb5bd;
+    cursor: not-allowed;
+  }
 `
