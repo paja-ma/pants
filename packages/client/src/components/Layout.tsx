@@ -16,6 +16,7 @@ export function Layout({ children }: LayoutProps) {
 
 const LayoutWrapper = styled.div`
   min-height: 100vh;
+  min-width: 100vw;
   width: 100%;
   background: #f8f9fa;
 `

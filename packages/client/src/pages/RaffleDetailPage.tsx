@@ -100,7 +100,6 @@ const Container = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  max-width: 768px;
   width: 100%;
   margin: 0 auto;
   display: flex;
