@@ -1,6 +1,8 @@
+import 'dotenv/config'
 import type { HardhatUserConfig } from 'hardhat/config'
 import '@nomicfoundation/hardhat-toolbox-viem'
 import '@nomicfoundation/hardhat-ethers'
+import './tasks/raffle'
 
 const { RPC_ENDPOINT, DEPLOYER_PRIVATE_KEY } = process.env
 
@@ -9,8 +11,8 @@ export default {
   networks: {
     sepolia: {
       url: RPC_ENDPOINT,
-      accounts: [DEPLOYER_PRIVATE_KEY || '']
-    }
+      accounts: [DEPLOYER_PRIVATE_KEY || ''],
+    },
   },
-  defaultNetwork: 'sepolia'
+  defaultNetwork: 'sepolia',
 } satisfies HardhatUserConfig
