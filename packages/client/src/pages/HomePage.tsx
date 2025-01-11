@@ -5,11 +5,18 @@ import { RaffleCard } from '../components/RaffleCard'
 import { raffleService } from '../services/raffleService'
 import { Raffle } from '../types/raffle'
 import { Button } from '../components/common/Button'
+import { useAccount } from 'wagmi'
 
 export function HomePage() {
   const navigate = useNavigate()
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const { address } = useAccount()
+
+  useEffect(() => {
+    console.log('Current address:', address)
+  }, [address])
 
   useEffect(function fetchRaffles() {
     async function getRaffles() {
@@ -81,60 +88,60 @@ export function HomePage() {
 }
 
 const Container = styled.div`
-  width: 100%;
-  background: #f8f9fa;
-  padding: 24px 16px;
+    width: 100%;
+    background: #f8f9fa;
+    padding: 24px 16px;
 `
 
 const ContentWrapper = styled.div`
-  max-width: 768px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 `
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const Title = styled.h1`
-  font-size: 28px;
-  font-weight: 600;
-  color: #212529;
-  margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
 `
 
 const CreateButton = styled(Button)`
-  padding: 8px 16px;
-  font-size: 14px;
-  background-color: #228be6;
-  color: white;
-  border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #228be6;
+    color: white;
+    border: none;
 
-  &:hover {
-    background-color: #1c7ed6;
-  }
+    &:hover {
+        background-color: #1c7ed6;
+    }
 `
 
 const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `
 
 const SectionTitle = styled.h2`
-  font-size: 24px;
-  font-weight: 600;
-  color: #212529;
-  margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
 `
 
 const RaffleList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 `
