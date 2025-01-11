@@ -18,7 +18,7 @@ task('registerParticipant', 'Register a single participant')
       RAFFLE_CONTRACT,
       taskArgs.contract
     )
-    const tx = await raffle.register(taskArgs.nickname)
+    const tx = await raffle.registerParticipant(taskArgs.nickname)
     const receipt = await tx.wait()
 
     console.log(`"${taskArgs.nickname}" is registered`)

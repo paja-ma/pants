@@ -51,7 +51,7 @@ contract Raffle {
     }
 
     function registerParticipant(string memory nickname) public exceptOwner returns (string memory) {
-        require(isClosed, "Raffle is closed.");
+        require(!isClosed, "Raffle is closed.");
         
         if (participants.length > 0) {
             for (uint i = 0; i < participants.length; i++) {
@@ -67,7 +67,7 @@ contract Raffle {
 
     function drawWinner() public onlyOwner returns (Participant memory) {
         require(participants.length > 0, "No participants registered.");
-        require(!isClosed, "Raffle is still open.");
+        require(isClosed, "Raffle is still open.");
 
         uint winnerIndex = uint(keccak256(abi.encodePacked(block.timestamp))) % participants.length;
 
