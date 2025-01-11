@@ -1,5 +1,5 @@
 import { usePrivy } from '@privy-io/react-auth'
-import { Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 import { LoginPage } from '../pages/LoginPage'
 import { HomePage } from '../pages/HomePage'
 import { Layout } from '../components/Layout'
@@ -22,10 +22,5 @@ export function AppRoutes() {
 
 function ProtectedLayout() {
   const { authenticated } = usePrivy()
-
-  if (!authenticated) {
-    return <LoginPage />
-  }
-
-  return <Layout />
+  return <Layout>{authenticated ? <Outlet /> : <LoginPage />}</Layout>
 }

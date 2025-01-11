@@ -1,12 +1,13 @@
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
 import { PrivyProvider } from '@privy-io/react-auth'
 import { WagmiProvider } from '@privy-io/wagmi'
-import { BrowserRouter } from 'react-router-dom'
-import { env } from './env'
-import { AppRoutes } from './routes'
-import { wagmiConfig } from './configs/wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { privyConfig } from './configs/privy.ts'
+import { privyConfig } from '@/configs/privy.ts'
+import { wagmiConfig } from '@/configs/wagmi'
+import { env } from '@/env'
+import { AppRoutes } from '@/routes'
+import '@/styles/global.css'
+import './App.css'
 
 const queryClient = new QueryClient()
 
