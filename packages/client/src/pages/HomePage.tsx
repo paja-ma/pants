@@ -9,11 +9,13 @@ import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.t
 import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
 import { CTA } from '@/components/CTA'
 import { Logo } from '@/components/Logo'
+// import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { user } = usePrivy()
+  // const { registerRaffle } = useRegisterRaffle()
 
   useEffect(() => {
     async function getRaffles() {
@@ -52,8 +54,8 @@ export function HomePage() {
     return <div>Loading...</div>
   }
 
-  const activeRaffles = raffles.filter((raffle) => !raffle.isEnded)
-  const endedRaffles = raffles.filter((raffle) => raffle.isEnded)
+  const activeRaffles = raffles.filter((raffle) => !raffle.isClosed)
+  const endedRaffles = raffles.filter((raffle) => raffle.isClosed)
   // const endedRaffles: Raffle[] = []
 
   return (
@@ -90,6 +92,17 @@ export function HomePage() {
       <Link to="/raffle/create">
         <CTA>래플 만들기</CTA>
       </Link>
+      {/*<button*/}
+      {/*  onClick={() =>*/}
+      {/*    registerRaffle({*/}
+      {/*      raffleAddress: '0x7b09D796b14530442554E40a47239dBF955cf738',*/}
+      {/*      nickname: '푸헤헤',*/}
+      {/*    })*/}
+      {/*  }*/}
+      {/*  className={styles.createRaffleButton}*/}
+      {/*>*/}
+      {/*  래플 참여하기*/}
+      {/*</button>*/}
     </>
   )
 }

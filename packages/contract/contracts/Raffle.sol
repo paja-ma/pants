@@ -20,8 +20,6 @@ contract Raffle {
         string nickname;
     }
 
-    Raffle[] private raffles;
-
     constructor(
         string memory initTitle,
         string memory initDescription,
@@ -48,6 +46,10 @@ contract Raffle {
 
     function initParticipants() public onlyOwner {
         delete participants;
+    }
+
+    function getParticipantNumber() public view returns (uint) {
+        return participants.length;
     }
 
     function registerParticipant(string memory nickname) public exceptOwner returns (string memory) {

@@ -1,45 +1,19 @@
-import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import type { Address } from 'viem'
 import styled from '@emotion/styled'
-import { raffleService } from '../services/raffleService'
-import { RaffleDetail } from '../types/raffle'
-import { Button } from '../components/common/Button'
-import { Card } from '../components/common/Card'
+import { Button } from '@/components/common/Button'
+import { Card } from '@/components/common/Card'
+import useRaffleDetail from '@/hooks/useRaffleDetail'
 
 export function RaffleDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [raffle, setRaffle] = useState<RaffleDetail | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(
-    function fetchRaffleDetail() {
-      async function getRaffleDetail() {
-        if (!id) return
-        try {
-          const data = await raffleService.getRaffleDetail(id)
-          setRaffle(data)
-        } catch (error) {
-          console.error('Failed to fetch raffle detail:', error)
-        } finally {
-          setIsLoading(false)
-        }
-      }
-
-      getRaffleDetail()
-    },
-    [id]
-  )
-
-  const handleEndRaffle = async () => {
-    if (!id) return
-    try {
-      await raffleService.endRaffle(id)
-      navigate('/')
-    } catch (error) {
-      console.error('Failed to end raffle:', error)
-    }
+  if (!id) {
+    navigate('/')
   }
+
+  const raffle = useRaffleDetail(id as Address)
 
   const handleParticipate = async () => {
     if (!id) return
@@ -51,7 +25,7 @@ export function RaffleDetailPage() {
     }
   }
 
-  if (isLoading || !raffle) {
+  if (!raffle) {
     return <div>Loading...</div>
   }
 
@@ -64,6 +38,7 @@ export function RaffleDetailPage() {
               <MainInfo>
                 <Title>{raffle.title}</Title>
                 <Description>{raffle.description}</Description>
+                {raffle.numberOfWinners?.toString() ?? '?'} 명 추첨
                 {raffle.imageUrl ? (
                   <RaffleImage src={raffle.imageUrl} alt={raffle.title} />
                 ) : (
@@ -74,7 +49,7 @@ export function RaffleDetailPage() {
           </Card>
         </Section>
 
-        {raffle.isEnded ? (
+        {raffle.isClosed ? (
           // 종료된 래플 UI
           <>
             <Section>
@@ -93,25 +68,25 @@ export function RaffleDetailPage() {
           </>
         ) : (
           // 진행 중인 래플 UI
-            <Section>
-              <SectionTitle>래플 응모 대기 주르륵</SectionTitle>
-              <Card>
-                <PlaceholderBox />
-              </Card>
-            </Section>
+          <Section>
+            <SectionTitle>래플 응모 대기 주르륵</SectionTitle>
+            <Card>
+              <PlaceholderBox />
+            </Card>
+          </Section>
         )}
 
         <ButtonSection>
-          {!raffle.isEnded && !raffle.isCreator && (
+          {!raffle.isClosed && !raffle.isCreator && (
             <ParticipateButton onClick={handleParticipate}>
               응모하기
             </ParticipateButton>
           )}
-          {!raffle.isEnded && raffle.isCreator && (
+          {/* {!raffle.isClosed && raffle.isCreator && (
             <EndRaffleButton onClick={handleEndRaffle}>
               래플 종료하기
             </EndRaffleButton>
-          )}
+          )} */}
         </ButtonSection>
       </ContentWrapper>
     </Container>
@@ -168,17 +143,17 @@ const SectionTitle = styled.h2`
   margin: 0;
 `
 
-const EndRaffleButton = styled(Button)`
-  background-color: #fa5252;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
+// const EndRaffleButton = styled(Button)`
+//   background-color: #fa5252;
+//   color: white;
+//   border: none;
+//   padding: 12px 24px;
+//   font-size: 16px;
 
-  &:hover {
-    background-color: #e03131;
-  }
-`
+//   &:hover {
+//     background-color: #e03131;
+//   }
+// `
 
 const RaffleImage = styled.img`
   width: 100%;
