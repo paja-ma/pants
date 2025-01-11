@@ -12,15 +12,15 @@ const queryClient = new QueryClient()
 
 function App() {
   return (
-    <PrivyProvider appId={env.VITE_PRIVY_APP_ID} config={privyConfig}>
-      <BrowserRouter>
-        <WagmiProvider config={wagmiConfig}>
-          <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <PrivyProvider appId={env.VITE_PRIVY_APP_ID} config={privyConfig}>
+        <QueryClientProvider client={queryClient}>
+          <WagmiProvider config={wagmiConfig}>
             <AppRoutes />
-          </QueryClientProvider>
-        </WagmiProvider>
-      </BrowserRouter>
-    </PrivyProvider>
+          </WagmiProvider>
+        </QueryClientProvider>
+      </PrivyProvider>
+    </BrowserRouter>
   )
 }
 
