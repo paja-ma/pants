@@ -15,7 +15,7 @@ export const raffleService = {
 
     return {
       ...raffle,
-      isCreator: raffle.creatorId === MOCK_USER_ID,
+      isCreator: raffle.creator.id === MOCK_USER_ID,
       participantsCount: 42, // 목업 데이터
     }
   },

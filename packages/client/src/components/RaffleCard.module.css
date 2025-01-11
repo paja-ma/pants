@@ -1,0 +1,40 @@
+.card {
+    display: block;
+
+    border: 1px solid hsl(0, 0%, 90%);
+    border-radius: 1.2rem;
+    padding: 1.2rem 1.6rem;
+
+    background-color: hsl(0, 0%, 98%);
+
+    color: inherit;
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.metadata {
+    margin: 0.4rem 0;
+
+    font-size: 1.4rem;
+    color: hsl(208 14% 29%);
+}
+
+.creator {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    margin-right: 0.8rem;
+    border-radius: 50%;
+    width: 2.4rem;
+    height: 2.4rem;
+}
+
+.creatorName {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
