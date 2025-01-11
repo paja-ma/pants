@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Logo } from './common/Logo'
 
-const ROUTES_WITH_BACK_BUTTON = ['/raffle/create', '/raffle/detail']
+const ROUTES_WITH_BACK_BUTTON = ['/raffle/create', '/raffle']
 
 export function Header() {
   const location = useLocation()
@@ -20,10 +20,11 @@ export function Header() {
               <span>←</span>
             </BackButton>
           )}
-          <Logo size={28} />
         </LeftSection>
+        <CenterSection>
+          <Logo size={28} />
+        </CenterSection>
         <RightSection>
-          <HeaderButton>로그</HeaderButton>
           <HeaderButton>마이</HeaderButton>
         </RightSection>
       </HeaderContent>
@@ -46,9 +47,9 @@ const HeaderContent = styled.div`
   height: 100%;
   margin: 0 auto;
   padding: 0 24px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 `
 
 const LeftSection = styled.div`
@@ -57,9 +58,16 @@ const LeftSection = styled.div`
   gap: 16px;
 `
 
+const CenterSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const RightSection = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
 `
 
