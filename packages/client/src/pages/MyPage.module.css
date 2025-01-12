@@ -15,6 +15,14 @@
     color: #212529;
 }
 
+.raffleList {
+    list-style: none;
+
+    & > li:not(:last-child) {
+        margin-bottom: 1.2rem;
+    }
+}
+
 .address {
     font-size: 1.4rem;
     font-family: 'JetBrains Mono', monospace;

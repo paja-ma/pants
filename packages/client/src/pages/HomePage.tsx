@@ -10,20 +10,12 @@ import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRa
 import { CTA } from '@/components/CTA'
 import { Logo } from '@/components/Logo'
 // import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
-import getOwnRaffle from '@/hooks/getOwnRaffle.ts'
+import { Address } from 'viem'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { user } = usePrivy()
-  const [ownedRaffles, setOwnedRaffles] = useState<string[]>([])
-
-  useEffect(() => {
-    getOwnRaffle('0x6C6Becfa9DBF7850696aE2704676288a703995f6').then((res) => {
-      console.log('owned raffles: ', res)
-      setOwnedRaffles(res)
-    })
-  }, [])
 
   // const { registerRaffle } = useRegisterRaffle()
 
@@ -82,7 +74,7 @@ export function HomePage() {
           <ul className={styles.raffleList}>
             {activeRaffles.map((raffle) => (
               <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
+                <RaffleCard raffleId={raffle.id as Address} />
               </li>
             ))}
           </ul>
@@ -92,7 +84,7 @@ export function HomePage() {
           <ul className={styles.raffleList}>
             {endedRaffles.map((raffle) => (
               <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
+                <RaffleCard raffleId={raffle.id as Address} />
               </li>
             ))}
           </ul>
