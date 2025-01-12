@@ -16,7 +16,7 @@ export function MyPage() {
     getOwnRaffle(user?.wallet?.address as Address).then((res) => {
       setOwnedRaffles(res as Address[])
     })
-  }, [])
+  }, [user])
 
   const handleLogout = async () => {
     await logout()
