@@ -18,8 +18,8 @@ export const text = {
       color: ${color};
     `
   ),
-  title1: style(20, 700),
+  title1: style(26, 700),
   title2: style(18, 500),
   subtitle: style(16, 500),
-  body: style(14, 500),
+  body: style(14, 400),
 } as const

@@ -1,13 +1,19 @@
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { Interpolation, Theme } from '@emotion/react'
-import { pressable, bg, text, padding, w, round } from '@/styles'
+import { pressable, bg, text, padding, w, round, flex } from '@/styles'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
+  description?: string
   css?: Interpolation<Theme>
 }
 
-export function CTA({ children, css, ...props }: PropsWithChildren<Props>) {
+export function CTA({
+  description,
+  children,
+  css,
+  ...props
+}: PropsWithChildren<Props>) {
   return (
     <div
       css={[
@@ -15,8 +21,14 @@ export function CTA({ children, css, ...props }: PropsWithChildren<Props>) {
         padding.bottom('calc(env(safe-area-inset-bottom) + 16px)'),
         { position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10 },
         bg.white,
+        flex.y({ align: 'center', gap: 12 }),
       ]}
     >
+      {description && (
+        <p css={[{ textAlign: 'center' }, text.gray400, text.body]}>
+          {description}
+        </p>
+      )}
       <button
         css={[
           pressable,
