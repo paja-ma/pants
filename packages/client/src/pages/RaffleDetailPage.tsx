@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import useRaffleDetail from '@/hooks/useRaffleDetail'
+import { CTA } from '@/components/CTA'
 
 export function RaffleDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -76,18 +77,19 @@ export function RaffleDetailPage() {
           </Section>
         )}
 
-        <ButtonSection>
-          {!raffle.isClosed && !raffle.isCreator && (
-            <ParticipateButton onClick={handleParticipate}>
-              응모하기
-            </ParticipateButton>
-          )}
-          {/* {!raffle.isClosed && raffle.isCreator && (
+        {/* <ButtonSection> */}
+        {/* {!raffle.isClosed && !raffle.isCreator && ( */}
+        {/*   <ParticipateButton onClick={handleParticipate}> */}
+        {/*     응모하기 */}
+        {/*   </ParticipateButton> */}
+        {/* )} */}
+        {/* {!raffle.isClosed && raffle.isCreator && (
             <EndRaffleButton onClick={handleEndRaffle}>
               래플 종료하기
             </EndRaffleButton>
           )} */}
-        </ButtonSection>
+        {/* </ButtonSection> */}
+        <CTA onClick={handleParticipate}>응모하기</CTA>
       </ContentWrapper>
     </Container>
   )

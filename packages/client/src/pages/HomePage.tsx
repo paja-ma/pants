@@ -88,12 +88,6 @@ export function HomePage() {
 
   return (
     <>
-      <header className={styles.header}>
-        <Logo w={108} h={32} />
-        <Link to="/my" className={styles.myProfileLink}>
-          My
-        </Link>
-      </header>
       <RaffleList raffleIds={joinedRaffleIds} />
 
       <Link to="/raffle/create">

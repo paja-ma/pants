@@ -1,7 +1,15 @@
+html,
+body,
+#root {
+    height: 100%;
+}
+
 #root {
     margin: 0 auto;
-    width: clamp(320px, 100%, 393px);
-    min-height: 100svh;
+    /*width: clamp(320px, 100%, 393px);*/
+    /*min-height: 100svh;*/
+    width: 100%;
+    max-width: 768px;
 
     background-color: #fff;
 }

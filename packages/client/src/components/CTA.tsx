@@ -13,7 +13,7 @@ export function CTA({ children, css, ...props }: PropsWithChildren<Props>) {
       css={[
         padding.x(20),
         padding.bottom('calc(env(safe-area-inset-bottom) + 16px)'),
-        { position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10 },
+        { position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 10 },
         bg.white,
       ]}
     >

@@ -8,6 +8,7 @@ import { deployArgs } from '@/hooks/deploy'
 import { useDeployContract } from 'wagmi'
 import { useNavigate } from 'react-router-dom'
 import { wagmiConfig } from '@/configs/wagmi.ts'
+import { CTA } from '@/components/CTA'
 
 export function CreateRafflePage() {
   const [title, setTitle] = useState('')
@@ -101,9 +102,7 @@ export function CreateRafflePage() {
             </FormContent>
           </Card>
 
-          <ButtonContainer>
-            <CreateButton type="submit">만들기~</CreateButton>
-          </ButtonContainer>
+          <CTA type="submit">만들기</CTA>
         </Form>
       </ContentWrapper>
     </Container>
