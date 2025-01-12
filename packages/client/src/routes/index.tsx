@@ -10,6 +10,7 @@ import { SplashPage } from '@/pages/SplashPage'
 import { Logo } from '@/components/Logo'
 import { colors, flex, padding, text } from '@/styles'
 import { css } from '@emotion/react'
+import { DonePage } from '@/pages/DonePage'
 
 export function AppRoutes() {
   return (
@@ -17,7 +18,7 @@ export function AppRoutes() {
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<HomeLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/done" element={<div>done</div>} />
+          <Route path="/done" element={<DonePage />} />
         </Route>
         <Route path="/raffle/:id" element={<RaffleDetailPage />} />
         <Route path="/raffle/create" element={<CreateRafflePage />} />

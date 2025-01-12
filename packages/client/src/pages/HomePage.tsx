@@ -6,51 +6,31 @@ import { usePrivy } from '@privy-io/react-auth'
 import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
 import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRaffle.ts'
 import { CTA } from '@/components/CTA'
-// import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
 import { Address } from 'viem'
 import getJoinedRaffle from '@/hooks/getJoinedRaffle.ts'
 import useRafflesDetail from '@/hooks/useRafflesDetail'
 import { Card } from '@/components/common/Card'
+import { padding } from '@/styles'
 
 function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
   const raffles = useRafflesDetail(raffleIds)
   const activeRaffles = raffles.filter((raffle) => !raffle.isClosed)
-  const endedRaffles = raffles.filter((raffle) => raffle.isClosed)
 
   return (
-    <main className={styles.main}>
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>진행 중인 래플 목록</h2>
-        {activeRaffles.length === 0 ? (
-          <Card>
-            <p className={styles.emptyText}>진행 중인 래플이 없습니다.</p>
-          </Card>
-        ) : (
-          <ul className={styles.raffleList}>
-            {activeRaffles.map((raffle) => (
-              <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>끝난 래플 목록</h2>
-        {endedRaffles.length === 0 ? (
-          <Card>
-            <p className={styles.emptyText}>끝난 래플이 없습니다.</p>
-          </Card>
-        ) : (
-          <ul className={styles.raffleList}>
-            {endedRaffles.map((raffle) => (
-              <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+    <main css={[padding.x(24), padding.y(28)]}>
+      {activeRaffles.length === 0 ? (
+        <Card>
+          <p className={styles.emptyText}>진행 중인 래플이 없습니다.</p>
+        </Card>
+      ) : (
+        <ul className={styles.raffleList}>
+          {activeRaffles.map((raffle) => (
+            <li key={raffle.id}>
+              <RaffleCard raffle={raffle} />
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   )
 }
