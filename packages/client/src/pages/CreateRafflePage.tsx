@@ -1,7 +1,6 @@
 import { type FormEvent, useState } from 'react'
 import styled from '@emotion/styled'
 import { getTransaction } from '@wagmi/core'
-import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import { ImageUploader } from '@/components/common/ImageUploader'
 import { deployArgs } from '@/hooks/deploy'
@@ -176,14 +175,4 @@ const TextArea = styled.textarea`
     outline: none;
     border-color: #228be6;
   }
-`
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-const CreateButton = styled(Button)`
-  padding: 12px 48px;
-  font-size: 16px;
 `

@@ -173,30 +173,6 @@ const RaffleImagePlaceholder = styled.div`
   margin-top: 16px;
 `
 
-const ButtonSection = styled.div`
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-`
-
-const ParticipateButton = styled(Button)`
-  padding: 12px 48px;
-  font-size: 16px;
-  background-color: #228be6;
-  color: white;
-  border: none;
-
-  &:hover {
-    background-color: #1c7ed6;
-  }
-
-  &:disabled {
-    background-color: #adb5bd;
-    cursor: not-allowed;
-  }
-`
-
 const PlaceholderBox = styled.div`
   width: 100%;
   height: 120px;
