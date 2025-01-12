@@ -2,7 +2,14 @@ html,
 body,
 #root {
     height: 100%;
-    overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+    html,
+    body,
+    #root {
+        height: 100dvh;
+    }
 }
 
 #root {
