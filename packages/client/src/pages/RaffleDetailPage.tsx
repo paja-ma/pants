@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { Address } from 'viem'
 import styled from '@emotion/styled'
-import { Button } from '@/components/common/Button'
 import { Card } from '@/components/common/Card'
 import useRaffleDetail from '@/hooks/useRaffleDetail'
 import { CTA } from '@/components/CTA'
@@ -144,18 +143,6 @@ const SectionTitle = styled.h2`
   color: #212529;
   margin: 0;
 `
-
-// const EndRaffleButton = styled(Button)`
-//   background-color: #fa5252;
-//   color: white;
-//   border: none;
-//   padding: 12px 24px;
-//   font-size: 16px;
-
-//   &:hover {
-//     background-color: #e03131;
-//   }
-// `
 
 const RaffleImage = styled.img`
   width: 100%;

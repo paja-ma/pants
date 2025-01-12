@@ -42,8 +42,8 @@ function HomeLayout() {
       <header
         css={[
           flex.x({ justify: 'space-between' }),
-          padding.x(20),
-          padding.y(10),
+          padding.x(24),
+          padding.y(18),
         ]}
       >
         <Logo w={108} h={32} />
