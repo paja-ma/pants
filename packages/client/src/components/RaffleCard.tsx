@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom'
 import styles from './RaffleCard.module.css'
-import useRaffleDetail from '@/hooks/useRaffleDetail'
-import { Address } from 'viem'
+import { RaffleDetail } from '@/types/raffle'
 
-export function RaffleCard({ raffleId }: { raffleId: Address }) {
-  const raffle = useRaffleDetail(raffleId)
-
+export function RaffleCard({ raffle }: { raffle: RaffleDetail }) {
   return (
     <Link to={`/raffle/${raffle.id}`} className={styles.card}>
       <h3 className={styles.title}>{raffle.title}</h3>

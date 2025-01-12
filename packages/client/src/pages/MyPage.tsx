@@ -6,6 +6,29 @@ import { useEffect, useState } from 'react'
 import getOwnRaffle from '@/hooks/getOwnRaffle'
 import { Address } from 'viem'
 import { RaffleCard } from '@/components/RaffleCard'
+import useRafflesDetail from '@/hooks/useRafflesDetail'
+
+function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
+  const ownedRaffles = useRafflesDetail(raffleIds)
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>내가 만든 래플 목록</h2>
+      {ownedRaffles.length === 0 ? (
+        <Card>
+          <p className={styles.emptyText}>아직 만든 래플이 없습니다.</p>
+        </Card>
+      ) : (
+        <ul className={styles.raffleList}>
+          {ownedRaffles.map((raffle) => (
+            <li key={raffle.id}>
+              <RaffleCard raffle={raffle} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}
 
 export function MyPage() {
   const navigate = useNavigate()
@@ -32,22 +55,7 @@ export function MyPage() {
             <span className={styles.address}>{user?.wallet?.address}</span>
           </Card>
         </section>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>내가 만든 래플 목록</h2>
-          {ownedRaffles.length === 0 ? (
-            <Card>
-              <p className={styles.emptyText}>아직 만든 래플이 없습니다.</p>
-            </Card>
-          ) : (
-            <ul className={styles.raffleList}>
-              {ownedRaffles.map((raffleId) => (
-                <li key={raffleId}>
-                  <RaffleCard raffleId={raffleId} />
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <RaffleList raffleIds={ownedRaffles} />
       </main>
       <button onClick={handleLogout} className={styles.signOutButton}>
         로그아웃
