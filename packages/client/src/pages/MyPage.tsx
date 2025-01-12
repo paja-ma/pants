@@ -34,13 +34,19 @@ export function MyPage() {
         </section>
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>내가 만든 래플 목록</h2>
-          <ul className={styles.raffleList}>
-            {ownedRaffles.map((raffleId) => (
-              <li key={raffleId}>
-                <RaffleCard raffleId={raffleId} />
-              </li>
-            ))}
-          </ul>
+          {ownedRaffles.length === 0 ? (
+            <Card>
+              <p className={styles.emptyText}>아직 만든 래플이 없습니다.</p>
+            </Card>
+          ) : (
+            <ul className={styles.raffleList}>
+              {ownedRaffles.map((raffleId) => (
+                <li key={raffleId}>
+                  <RaffleCard raffleId={raffleId} />
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </main>
       <button onClick={handleLogout} className={styles.signOutButton}>
