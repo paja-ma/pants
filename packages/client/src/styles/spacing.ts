@@ -7,12 +7,12 @@ const style = (attribute: string) => (value: number | string) =>
 
 const applyPrefix = (prefix: 'padding' | 'margin') =>
   Object.assign(style(prefix), {
-    top: style(`${prefix}-top`),
-    bottom: style(`${prefix}-bottom`),
-    left: style(`${prefix}-left`),
-    right: style(`${prefix}-right`),
-    y: style(`${prefix}-block`),
-    x: style(`${prefix}-inline`),
+    top: style(`${prefix}Top`),
+    bottom: style(`${prefix}Bottom`),
+    left: style(`${prefix}Left`),
+    right: style(`${prefix}Right`),
+    y: style(`${prefix}Block`),
+    x: style(`${prefix}Inline`),
   })
 
 /**
