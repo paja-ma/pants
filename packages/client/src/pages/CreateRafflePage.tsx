@@ -9,13 +9,16 @@ import { useNavigate } from 'react-router-dom'
 import { wagmiConfig } from '@/configs/wagmi.ts'
 import { CTA } from '@/components/CTA'
 
+import { useRegisterRaffle } from '@/hooks/useRegisterRaffle'
+
 export function CreateRafflePage() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [maxParticipants, setMaxParticipants] = useState('')
+  const registerRaffle = useRegisterRaffle()
 
   const navigate = useNavigate()
-  const { deployContractAsync } = useDeployContract()
+  // const { deployContractAsync } = useDeployContract()
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
@@ -25,28 +28,35 @@ export function CreateRafflePage() {
       maxParticipants: { value: number }
     }
 
-    const transactionAddress = await deployContractAsync(
-      deployArgs({
-        title: data.title.value,
-        description: data.description.value,
-        maxParticipants: data.maxParticipants.value,
-        imageUrl:
-          'https://media.licdn.com/dms/image/v2/D560BAQFU2h_sBVJbqw/company-logo_200_200/company-logo_200_200/0/1707983142205/dunamu_logo?e=1744848000&v=beta&t=AqLxRfF_N3uICBTzPm51S_QI4SwLeb9oxGRlNgPH7oY',
-      })
-    )
+    // const transactionAddress = await deployContractAsync(
+    //   deployArgs({
+    //     title: data.title.value,
+    //     description: data.description.value,
+    //     maxParticipants: data.maxParticipants.value,
+    //     imageUrl:
+    //       'https://media.licdn.com/dms/image/v2/D560BAQFU2h_sBVJbqw/company-logo_200_200/company-logo_200_200/0/1707983142205/dunamu_logo?e=1744848000&v=beta&t=AqLxRfF_N3uICBTzPm51S_QI4SwLeb9oxGRlNgPH7oY',
+    //   })
+    // )
 
     console.table({
-      transactionAddress,
+      transactionAddress: 'aaaa',
       title: data.title.value,
       description: data.description.value,
       maxParticipants: data.maxParticipants.value,
     })
 
-    const { to: contractAddress } = await getTransaction(wagmiConfig, {
-      hash: transactionAddress,
+    registerRaffle.registerRaffle({
+      raffleAddress: 'aaaa',
+      title: data.title.value,
+      description: data.description.value,
+      numberOfWinners: data.maxParticipants.value,
     })
 
-    console.log('contractAddress:', contractAddress)
+    // const { to: contractAddress } = await getTransaction(wagmiConfig, {
+    //   hash: transactionAddress,
+    // })
+
+    // console.log('contractAddress:', contractAddress)
 
     navigate(`/`)
   }

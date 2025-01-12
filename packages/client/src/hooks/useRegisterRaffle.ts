@@ -1,17 +1,25 @@
 import type { Address } from 'viem'
-import { useWriteContract } from 'wagmi'
-import raffle from '@/_generated/Raffle.json'
+import raffleSystem from '@/_generated/RaffleSystem.json'
+import { useSmartWallets } from '@privy-io/react-auth/smart-wallets'
 
 export function useRegisterRaffle() {
-  const { writeContract } = useWriteContract()
+  const { client } = useSmartWallets()
 
   return {
-    registerRaffle: (args: { raffleAddress: string; nickname: string }) =>
-      writeContract({
-        abi: raffle.abi,
-        address: args.raffleAddress as Address,
-        functionName: 'registerParticipant',
-        args: [args.nickname],
-      }),
+    registerRaffle: async (args: {
+      raffleAddress: string
+      title: string
+      description: string
+      numberOfWinners: number
+    }) => {
+      const res = await client?.writeContract({
+        abi: raffleSystem.abi,
+        address: '0xcd465BB7119588Cac7A5EE8503F841594ACeE691' as Address,
+        functionName: 'createRaffle',
+        args: [args.title, args.description, args.numberOfWinners, null],
+      })
+
+      console.log('res:', res)
+    },
   }
 }
