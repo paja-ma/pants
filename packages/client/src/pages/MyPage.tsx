@@ -36,6 +36,7 @@ export function MyPage() {
   const { user, logout } = usePrivy()
 
   const [ownedRaffles, setOwnedRaffles] = useState<Address[]>([])
+
   useEffect(() => {
     getOwnRaffle(user?.wallet?.address as Address).then((res) => {
       setOwnedRaffles(res as Address[])
@@ -50,17 +51,19 @@ export function MyPage() {
   return (
     <>
       <main className={styles.main}>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>지갑 주소</h2>
-          <Card>
-            <span className={styles.address}>{user?.wallet?.address}</span>
-          </Card>
-        </section>
-        <RaffleList raffleIds={ownedRaffles} />
+        <div css={{ overflowY: 'scroll', flex: 1, padding: '2.4rem 2rem 0' }}>
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>지갑 주소</h2>
+            <Card>
+              <span className={styles.address}>{user?.wallet?.address}</span>
+            </Card>
+          </section>
+          <RaffleList raffleIds={ownedRaffles} />
+        </div>
+        <CTA onClick={handleLogout} css={{ 'background-color': '#fa5252' }}>
+          로그아웃
+        </CTA>
       </main>
-      <CTA onClick={handleLogout} css={{ 'background-color': '#fa5252' }}>
-        로그아웃
-      </CTA>
     </>
   )
 }
