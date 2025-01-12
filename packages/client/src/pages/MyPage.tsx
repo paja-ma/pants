@@ -1,12 +1,13 @@
-import { useNavigate } from 'react-router-dom'
-import { usePrivy } from '@privy-io/react-auth'
-import { Card } from '@/components/common/Card'
-import styles from './MyPage.module.css'
 import { useEffect, useState } from 'react'
-import getOwnRaffle from '@/hooks/getOwnRaffle'
+import { useNavigate } from 'react-router-dom'
 import { Address } from 'viem'
+import { usePrivy } from '@privy-io/react-auth'
+import { CTA } from '@/components/CTA'
 import { RaffleCard } from '@/components/RaffleCard'
+import { Card } from '@/components/common/Card'
+import getOwnRaffle from '@/hooks/getOwnRaffle'
 import useRafflesDetail from '@/hooks/useRafflesDetail'
+import styles from './MyPage.module.css'
 
 function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
   const ownedRaffles = useRafflesDetail(raffleIds)
@@ -57,9 +58,9 @@ export function MyPage() {
         </section>
         <RaffleList raffleIds={ownedRaffles} />
       </main>
-      <button onClick={handleLogout} className={styles.signOutButton}>
+      <CTA onClick={handleLogout} css={{ 'background-color': '#fa5252' }}>
         로그아웃
-      </button>
+      </CTA>
     </>
   )
 }
