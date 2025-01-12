@@ -32,7 +32,7 @@ export function RaffleDetailPage() {
   }
 
   return (
-    <main>
+    <main css={{ overflowY: 'scroll', height: '100%' }}>
       <div
         css={[
           {
@@ -85,6 +85,8 @@ export function RaffleDetailPage() {
             </div>
           ))}
       </section>
+
+      <div css={h(150)} />
 
       <CTA
         description={`22:30:${(timeLeft % 60) + 60} 후 응모가 마감돼요`}

@@ -24,6 +24,17 @@ export function CTA({
         flex.y({ align: 'center', gap: 12 }),
       ]}
     >
+      <div
+        css={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 26,
+          transform: 'translateY(-100%)',
+          background: 'linear-gradient(#ffffff00, white)',
+        }}
+      />
       {description && (
         <p css={[{ textAlign: 'center' }, text.gray400, text.body]}>
           {description}
