@@ -11,18 +11,27 @@ import { CTA } from '@/components/CTA'
 import { Logo } from '@/components/Logo'
 // import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
 import getOwnRaffle from '@/hooks/getOwnRaffle.ts'
+import getJoinedRaffle from '@/hooks/getJoinedRaffle.ts'
 
 export function HomePage() {
   const [raffles, setRaffles] = useState<Raffle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { user } = usePrivy()
   const [ownedRaffles, setOwnedRaffles] = useState<string[]>([])
+  const [joinedRaffles, setJoinedRaffles] = useState<string[]>([])
 
   useEffect(() => {
     getOwnRaffle('0x6C6Becfa9DBF7850696aE2704676288a703995f6').then((res) => {
       console.log('owned raffles: ', res)
       setOwnedRaffles(res)
     })
+
+    getJoinedRaffle('0x6C6Becfa9DBF7850696aE2704676288a703995f6').then(
+      (res) => {
+        console.log('joined raffles: ', res)
+        setJoinedRaffles(res)
+      }
+    )
   }, [])
 
   // const { registerRaffle } = useRegisterRaffle()
