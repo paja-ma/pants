@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { RaffleCard } from '@/components/RaffleCard'
-import { raffleService } from '@/services/raffleService'
-import type { Raffle } from '@/types/raffle'
 import styles from './HomePage.module.css'
 import { usePrivy } from '@privy-io/react-auth'
 import { getTransactionsByAccount } from '@/lib/nodit/getTransactionsByAccount.ts'
@@ -10,46 +8,65 @@ import { getParticipantAddressesOfRaffle } from '@/lib/nodit/getParticipantsOfRa
 import { CTA } from '@/components/CTA'
 import { Logo } from '@/components/Logo'
 // import { useRegisterRaffle } from '@/hooks/useRegisterRaffle.ts'
-import getOwnRaffle from '@/hooks/getOwnRaffle.ts'
+import { Address } from 'viem'
 import getJoinedRaffle from '@/hooks/getJoinedRaffle.ts'
+import useRafflesDetail from '@/hooks/useRafflesDetail'
+import { Card } from '@/components/common/Card'
+
+function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
+  const raffles = useRafflesDetail(raffleIds)
+  const activeRaffles = raffles.filter((raffle) => !raffle.isClosed)
+  const endedRaffles = raffles.filter((raffle) => raffle.isClosed)
+
+  return (
+    <main className={styles.main}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>진행 중인 래플 목록</h2>
+        {activeRaffles.length === 0 ? (
+          <Card>
+            <p className={styles.emptyText}>진행 중인 래플이 없습니다.</p>
+          </Card>
+        ) : (
+          <ul className={styles.raffleList}>
+            {activeRaffles.map((raffle) => (
+              <li key={raffle.id}>
+                <RaffleCard raffle={raffle} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>끝난 래플 목록</h2>
+        {endedRaffles.length === 0 ? (
+          <Card>
+            <p className={styles.emptyText}>끝난 래플이 없습니다.</p>
+          </Card>
+        ) : (
+          <ul className={styles.raffleList}>
+            {endedRaffles.map((raffle) => (
+              <li key={raffle.id}>
+                <RaffleCard raffle={raffle} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    </main>
+  )
+}
 
 export function HomePage() {
-  const [raffles, setRaffles] = useState<Raffle[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const { user } = usePrivy()
-  const [ownedRaffles, setOwnedRaffles] = useState<string[]>([])
-  const [joinedRaffles, setJoinedRaffles] = useState<string[]>([])
 
+  const [joinedRaffleIds, setJoinedRaffleIds] = useState<Address[]>([])
   useEffect(() => {
-    getOwnRaffle('0x6C6Becfa9DBF7850696aE2704676288a703995f6').then((res) => {
-      console.log('owned raffles: ', res)
-      setOwnedRaffles(res)
+    getJoinedRaffle(user?.wallet?.address as Address).then((res) => {
+      setJoinedRaffleIds(res as Address[])
     })
-
-    getJoinedRaffle('0x6C6Becfa9DBF7850696aE2704676288a703995f6').then(
-      (res) => {
-        console.log('joined raffles: ', res)
-        setJoinedRaffles(res)
-      }
-    )
-  }, [])
+  }, [user])
 
   // const { registerRaffle } = useRegisterRaffle()
-
-  useEffect(() => {
-    async function getRaffles() {
-      try {
-        const data = await raffleService.getRaffles()
-        setRaffles(data)
-      } catch (error) {
-        console.error('Failed to fetch raffles:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    getRaffles()
-  }, [])
 
   useEffect(() => {
     if (!user?.wallet) return
@@ -69,14 +86,6 @@ export function HomePage() {
     })()
   }, [user, user?.wallet])
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  const activeRaffles = raffles.filter((raffle) => !raffle.isClosed)
-  const endedRaffles = raffles.filter((raffle) => raffle.isClosed)
-  // const endedRaffles: Raffle[] = []
-
   return (
     <>
       <header className={styles.header}>
@@ -85,28 +94,7 @@ export function HomePage() {
           My
         </Link>
       </header>
-      <main className={styles.main}>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>진행 중인 래플 목록</h2>
-          <ul className={styles.raffleList}>
-            {activeRaffles.map((raffle) => (
-              <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>끝난 래플 목록</h2>
-          <ul className={styles.raffleList}>
-            {endedRaffles.map((raffle) => (
-              <li key={raffle.id}>
-                <RaffleCard raffle={raffle} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      </main>
+      <RaffleList raffleIds={joinedRaffleIds} />
 
       <Link to="/raffle/create">
         <CTA>래플 만들기</CTA>

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import type { Raffle } from '@/types/raffle'
 import styles from './RaffleCard.module.css'
+import { RaffleDetail } from '@/types/raffle'
 
-export function RaffleCard({ raffle }: { raffle: Raffle }) {
+export function RaffleCard({ raffle }: { raffle: RaffleDetail }) {
   return (
     <Link to={`/raffle/${raffle.id}`} className={styles.card}>
       <h3 className={styles.title}>{raffle.title}</h3>

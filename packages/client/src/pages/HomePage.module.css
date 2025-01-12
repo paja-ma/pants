@@ -67,3 +67,10 @@
         background-color: #4f46e5;
     }
 }
+
+.emptyText {
+    padding: 2.4rem;
+    text-align: center;
+    color: #868e96;
+    font-size: 1.4rem;
+}
