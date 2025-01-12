@@ -11,6 +11,7 @@ import { Logo } from '@/components/Logo'
 import { Address } from 'viem'
 import getJoinedRaffle from '@/hooks/getJoinedRaffle.ts'
 import useRafflesDetail from '@/hooks/useRafflesDetail'
+import { Card } from '@/components/common/Card'
 
 function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
   const raffles = useRafflesDetail(raffleIds)
@@ -21,23 +22,35 @@ function RaffleList({ raffleIds }: { raffleIds: Address[] }) {
     <main className={styles.main}>
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>진행 중인 래플 목록</h2>
-        <ul className={styles.raffleList}>
-          {activeRaffles.map((raffle) => (
-            <li key={raffle.id}>
-              <RaffleCard raffle={raffle} />
-            </li>
-          ))}
-        </ul>
+        {activeRaffles.length === 0 ? (
+          <Card>
+            <p className={styles.emptyText}>진행 중인 래플이 없습니다.</p>
+          </Card>
+        ) : (
+          <ul className={styles.raffleList}>
+            {activeRaffles.map((raffle) => (
+              <li key={raffle.id}>
+                <RaffleCard raffle={raffle} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>끝난 래플 목록</h2>
-        <ul className={styles.raffleList}>
-          {endedRaffles.map((raffle) => (
-            <li key={raffle.id}>
-              <RaffleCard raffle={raffle} />
-            </li>
-          ))}
-        </ul>
+        {endedRaffles.length === 0 ? (
+          <Card>
+            <p className={styles.emptyText}>끝난 래플이 없습니다.</p>
+          </Card>
+        ) : (
+          <ul className={styles.raffleList}>
+            {endedRaffles.map((raffle) => (
+              <li key={raffle.id}>
+                <RaffleCard raffle={raffle} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   )
