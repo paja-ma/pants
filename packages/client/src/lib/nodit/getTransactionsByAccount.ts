@@ -1,3 +1,5 @@
+import { env } from '@/env'
+
 type GetTransactionsByAccountParams = {
   protocol: 'ethereum'
   network: 'mainnet' | 'sepolia' | 'holesky'
@@ -38,7 +40,7 @@ export function getTransactionsByAccount(
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'X-API-KEY': import.meta.env.VITE_NODIT_API_KEY,
+        'X-API-KEY': env.VITE_NODIT_API_KEY,
       },
       body: JSON.stringify({
         accountAddress: params.address,
