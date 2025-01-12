@@ -52,6 +52,10 @@ contract Raffle {
         return participants.length;
     }
 
+    function getRaffleDetail() public view returns (string memory, string memory, uint, string memory, bool) {
+        return (title, description, numberOfWinners, imageURL, isClosed);
+    }
+
     function registerParticipant(string memory nickname) public exceptOwner returns (string memory) {
         require(!isClosed, "Raffle is closed.");
         
@@ -67,7 +71,7 @@ contract Raffle {
     }
 
 
-    function drawWinner() public onlyOwner returns (Participant memory) {
+    function drawWinner() public onlyOwner returns (address, string memory) {
         require(participants.length > 0, "No participants registered.");
         require(isClosed, "Raffle is still open.");
 
@@ -79,7 +83,7 @@ contract Raffle {
                 break;
             }
         }
-        return winner;
+        return (winner.id, winner.nickname);
     }
 
     function closeRaffle() public onlyOwner {
