@@ -2,7 +2,7 @@
   "name": "@pajama/contract",
   "version": "1.0.0",
   "scripts": {
-    "compile": "hardhat compile && ncp ./artifacts/contracts/Raffle.sol ../client/src/_generated",
+    "compile": "hardhat compile && ncp ./artifacts/contracts/RaffleSystem.sol ../client/src/_generated",
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy.ts"
   },

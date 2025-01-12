@@ -1,10 +1,10 @@
 import type { Address } from 'viem'
 import { useReadContract } from 'wagmi'
-import raffle from '@/_generated/Raffle.json'
+import raffleSystem from '@/_generated/RaffleSystem.json'
 
 const useRaffleParticipants = (address: Address) => {
   const { data: participants } = useReadContract({
-    abi: raffle.abi,
+    abi: raffleSystem.abi,
     address: address,
     functionName: 'participants',
   })

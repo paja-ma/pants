@@ -6,16 +6,16 @@
 import "hardhat/types/artifacts";
 import type { GetContractReturnType } from "@nomicfoundation/hardhat-viem/types";
 
-import { Raffle$Type } from "./Raffle";
+import { RaffleSystem$Type } from "./RaffleSystem";
 
 declare module "hardhat/types/artifacts" {
   interface ArtifactsMap {
-    ["Raffle"]: Raffle$Type;
-    ["contracts/Raffle.sol:Raffle"]: Raffle$Type;
+    ["RaffleSystem"]: RaffleSystem$Type;
+    ["contracts/RaffleSystem.sol:RaffleSystem"]: RaffleSystem$Type;
   }
 
   interface ContractTypesMap {
-    ["Raffle"]: GetContractReturnType<Raffle$Type["abi"]>;
-    ["contracts/Raffle.sol:Raffle"]: GetContractReturnType<Raffle$Type["abi"]>;
+    ["RaffleSystem"]: GetContractReturnType<RaffleSystem$Type["abi"]>;
+    ["contracts/RaffleSystem.sol:RaffleSystem"]: GetContractReturnType<RaffleSystem$Type["abi"]>;
   }
 }
