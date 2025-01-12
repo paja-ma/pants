@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import type { Address } from 'viem'
-import styled from '@emotion/styled'
-import { Card } from '@/components/common/Card'
 import useRaffleDetail from '@/hooks/useRaffleDetail'
 import { CTA } from '@/components/CTA'
+import { bg, flex, h, margin, padding, text, w } from '@/styles'
+import { useTimeLeft } from '@/hooks/useTimeLeft'
 
 export function RaffleDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+
+  const { timeLeft } = useTimeLeft(new Date('2024-01-15'))
 
   if (!id) {
     navigate('/')
@@ -30,140 +32,66 @@ export function RaffleDetailPage() {
   }
 
   return (
-    <Container>
-      <ContentWrapper>
-        <Section>
-          <Card>
-            <RaffleInfo>
-              <MainInfo>
-                <Title>{raffle.title}</Title>
-                <Description>{raffle.description}</Description>
-                {raffle.numberOfWinners?.toString() ?? '?'} 명 추첨
-                {raffle.imageUrl ? (
-                  <RaffleImage src={raffle.imageUrl} alt={raffle.title} />
-                ) : (
-                  <RaffleImagePlaceholder />
-                )}
-              </MainInfo>
-            </RaffleInfo>
-          </Card>
-        </Section>
+    <main>
+      <div
+        css={[
+          {
+            backgroundImage: `url(${
+              raffle.imageUrl ??
+              'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+            } )`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          },
+          w('fill'),
+          h(200),
+        ]}
+      />
 
-        {raffle.isClosed ? (
-          // 종료된 래플 UI
-          <>
-            <Section>
-              <SectionTitle>당첨 코드 디코딩(?)</SectionTitle>
-              <Card>
-                <PlaceholderBox />
-              </Card>
-            </Section>
+      <section css={[padding.y(32), padding.x(24), flex.y({ gap: 8 })]}>
+        <h1 css={text.title1}>랜덤 수면바지 2개 증정</h1>
 
-            <Section>
-              <SectionTitle>래플 당첨 결과 주르륵</SectionTitle>
-              <Card>
-                <PlaceholderBox />
-              </Card>
-            </Section>
-          </>
-        ) : (
-          // 진행 중인 래플 UI
-          <Section>
-            <SectionTitle>래플 응모 대기 주르륵</SectionTitle>
-            <Card>
-              <PlaceholderBox />
-            </Card>
-          </Section>
-        )}
+        <p css={[text.gray500, text.subtitle]}>
+          <span css={[text.primary, { fontWeight: 600 }]}>1명 추첨</span>
 
-        {/* <ButtonSection> */}
-        {/* {!raffle.isClosed && !raffle.isCreator && ( */}
-        {/*   <ParticipateButton onClick={handleParticipate}> */}
-        {/*     응모하기 */}
-        {/*   </ParticipateButton> */}
-        {/* )} */}
-        {/* {!raffle.isClosed && raffle.isCreator && (
-            <EndRaffleButton onClick={handleEndRaffle}>
-              래플 종료하기
-            </EndRaffleButton>
-          )} */}
-        {/* </ButtonSection> */}
-        <CTA onClick={handleParticipate}>응모하기</CTA>
-      </ContentWrapper>
-    </Container>
+          <span> · 현재 23명 지원 중</span>
+        </p>
+
+        <p css={[text.gray500, text.body, padding.top(6)]}>
+          이건 설명이에요. 여기에 이벤트 설명을 적을 수 있어요.
+        </p>
+      </section>
+
+      <section
+        css={[
+          margin.x(24),
+          bg.gray200,
+          padding.y(12),
+          padding.x(20),
+          { borderRadius: 12 },
+        ]}
+      >
+        {Array(10)
+          .fill(0)
+          .map((_, index) => (
+            <div
+              css={[text.subtitle, flex.x({ gap: 8 }), { lineHeight: '180%' }]}
+            >
+              <div css={[w(64), text.primary, { fontWeight: 600 }]}>0x2f3w</div>
+
+              <div css={[text.gray500, { fontWeight: 400 }]}>
+                {index + 1} 번째로 응모했어요
+              </div>
+            </div>
+          ))}
+      </section>
+
+      <CTA
+        description={`22:30:${(timeLeft % 60) + 60} 후 응모가 마감돼요`}
+        onClick={handleParticipate}
+      >
+        응모하기
+      </CTA>
+    </main>
   )
 }
-
-const Container = styled.div`
-  width: 100%;
-  padding: 24px 16px;
-`
-
-const ContentWrapper = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-`
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`
-
-const RaffleInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-`
-
-const MainInfo = styled.div`
-  flex: 1;
-`
-
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 600;
-  color: #212529;
-  margin: 0 0 8px 0;
-`
-
-const Description = styled.p`
-  font-size: 16px;
-  color: #495057;
-  margin: 0;
-`
-
-const SectionTitle = styled.h2`
-  font-size: 20px;
-  font-weight: 600;
-  color: #212529;
-  margin: 0;
-`
-
-const RaffleImage = styled.img`
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-top: 16px;
-`
-
-const RaffleImagePlaceholder = styled.div`
-  width: 100%;
-  height: 240px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin-top: 16px;
-`
-
-const PlaceholderBox = styled.div`
-  width: 100%;
-  height: 120px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin: 16px 0;
-`
