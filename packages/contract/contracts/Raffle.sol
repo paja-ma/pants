@@ -8,7 +8,7 @@ contract Raffle {
     string public description;
     string public imageURL;
 
-    Participant[] participants;
+    Participant[] public participants;
 
     uint public numberOfWinners;
     Participant public winner;
